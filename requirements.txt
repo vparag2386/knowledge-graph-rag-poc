@@ -4,8 +4,8 @@ llama-index-embeddings-ollama
 llama-index-embeddings-huggingface
 networkx
 beautifulsoup4
-psycopg2-binary
 requests
 wikipedia
+python-dotenv
 SpeechRecognition
 pyaudio

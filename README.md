@@ -1,19 +1,29 @@
+
 # Knowledge Graph RAG POC
 
-A Retrieval-Augmented Generation (RAG) system that leverages knowledge graphs to index and query information from real-world sources like Wikipedia and Wiki.js.
+A Retrieval-Augmented Generation (RAG) system that builds a knowledge graph from Wikipedia articles and allows you to query it using natural language.
 
 ## Overview
 
-This project demonstrates how to build a Knowledge Graph using LlamaIndex and query it using the Mistral LLM (via Ollama). It supports fetching data from:
-- **Wikipedia**: Real-time article fetching.
-- **Wiki.js**: Local documentation knowledge base.
+This project fetches real-world articles from Wikipedia, builds a Knowledge Graph using **LlamaIndex**, and queries it using the **Mistral** LLM (locally via **Ollama**).
+
+## Features
+
+- ✅ Fetch real Wikipedia articles via MediaWiki API
+- ✅ Build knowledge graph index using LlamaIndex
+- ✅ Query using Mistral LLM (via Ollama)
+- ✅ Local embeddings with HuggingFace
+- ✅ Source attribution using Wikipedia URLs
 
 ## Quick Start
 
 ### 1. Prerequisites
 
 - Python 3.8+
-- [Ollama](https://ollama.com/) with `mistral` model installed (`ollama run mistral`)
+- [Ollama](https://ollama.com/) with `mistral` model installed:
+  ```bash
+  ollama run mistral
+  ```
 
 ### 2. Setup
 
@@ -28,28 +38,37 @@ pip install -r requirements.txt
 
 ### 3. Usage
 
-This project contains two main modules.
+The project uses a single CLI entry point: `rag_agent/main.py`.
 
-#### Wikipedia RAG
-For detailed instructions on using the Wikipedia RAG agent, please refer to [README_WIKIPEDIA.md](README_WIKIPEDIA.md).
+#### Build a Knowledge Graph
+Fetch articles on a specific topic and build the index.
 
-**Quick Example:**
 ```bash
-# 1. Fetch articles and build index
-python build_index_wikipedia.py "Artificial Intelligence" 10
+# Syntax: python rag_agent/main.py --index --topic "Your Topic" [--limit N]
 
-# 2. Query the graph
-python query_wikipedia.py
+python rag_agent/main.py --index --topic "Artificial Intelligence" --limit 10
 ```
 
-#### Wiki.js Integration
-To use with a local Wiki.js instance:
-1. Configure your `.env` file (see `rag_agent/.env`).
-2. Run `populate_wiki.py` to seed data if needed.
-3. Update `config.py` to use `wikijs` reader.
+#### Query the Knowledge Graph
+Ask questions based on the indexed content.
+
+```bash
+# Single query
+python rag_agent/main.py --query "What is deep learning?"
+
+# Interactive mode
+python rag_agent/main.py --interactive
+```
 
 ## Project Structure
 
-- `rag_agent/`: Core RAG logic, indexers, and readers.
-- `storage`/`: Generated vector indices and graph stores (ignored by git).
-- `*.py`: Utility scripts for building indices and querying.
+- `rag_agent/`: Core source code
+  - `src/wikipedia_reader.py`: Fetches articles from Wikipedia
+  - `src/indexer.py`: Builds the Knowledge Graph
+  - `src/query.py`: Handles LLM queries
+- `storage`/`: Generated vector indices (gitignored)
+
+## Troubleshooting
+
+- **Ollama Connection Error**: Ensure Ollama is running (`ollama serve` or `ollama run mistral`).
+- **No Documents Found**: Try a broader topic name for the Wikipedia search.
