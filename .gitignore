@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.idea/
+.pytest_cache/
+rag_agent/.env
+storage*/
+rag_agent/storage*/
+*.log
+.DS_Store

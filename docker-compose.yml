@@ -1,0 +1,14 @@
+version: "3"
+services:
+  wiki:
+    image: requarks/wiki:2
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: host.docker.internal
+      DB_PORT: 5433
+      DB_USER: postgres
+      DB_PASS: Pass@123
+      DB_NAME: wiki
+    restart: unless-stopped
+    ports:
+      - "3000:3000"

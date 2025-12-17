@@ -1,0 +1,1 @@
+{"query": "{ pages { list { id path title content } } }"}
